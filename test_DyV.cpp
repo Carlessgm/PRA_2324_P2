@@ -5,6 +5,7 @@
 using namespace std;
 
 int main(){
+	cout << "- Vector ordenados ascendentemente\n\n";
 	vector<int> a{1, 2, 3, 4, 5};
 	vector<double> b{1.1, 1.2, 1.3, 1.4, 1.5};
 	vector<char> c{'1', '2', '3', '4', '5'};
@@ -38,6 +39,38 @@ int main(){
                 cout << "El valor se encuentra en la posición: " << posicion << " (función char)\n";
         }
 
+	cout << "\n\n- Vectores ordenados descendentemente\n\n";
+
+	vector<int> d{5, 4, 3, 2, 1};
+	vector<double> e{1.5, 1.4, 1.3, 1.2, 1.1};
+	vector<char> f{'5', '4', '3', '2', '1'};
+
+	posicion = BusquedaBinaria_INV(4, d, 0, d.size() - 1);
+
+	if(posicion == -1){
+		cout << "No se ha econtrado el elemento en el array (función int)\n";
+	}
+	else{
+		cout << "El valor se encuentra en la posición: " << posicion << " (función int)\n";
+	}
+
+	posicion = BusquedaBinaria_INV(1.1, e, 0, e.size() - 1);
+
+	if(posicion == -1){
+                cout << "No se ha econtrado el elemento en el array (función double)\n";
+        }
+        else{
+                cout << "El valor se encuentra en la posición: " << posicion << " (función double)\n";
+        }
+
+	posicion = BusquedaBinaria_INV('5', f, 0, f.size() - 1);
+
+	if(posicion == -1){
+                cout << "No se ha econtrado el elemento en el array (función char)\n";
+        }
+        else{
+                cout << "El valor se encuentra en la posición: " << posicion << " (función char)\n";
+        }
 
 	return 0;
 }
