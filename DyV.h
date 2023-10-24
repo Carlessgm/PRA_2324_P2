@@ -1,5 +1,7 @@
 #include <vector>
 #include <ostream>
+#include <cstdlib>
+#include <ctime>
 
 using namespace std;
 
@@ -42,8 +44,8 @@ int BusquedaBinaria_INV(val X, vector<val> V, int ini, int fin){
 }
 
 template <typename val>
-int Partition(vector<val> &V, int ini, int fin){
-	val x = V[fin];
+int Partition_Final(vector<val> &V, int ini, int fin){
+        val x = V[fin];    // Variable "pivote"
 	int i = ini;
 	val aux;
 
@@ -62,11 +64,120 @@ int Partition(vector<val> &V, int ini, int fin){
 }
 
 template <typename val>
-void QuickSort(vector<val> &V, int ini, int fin){
+void QuickSort_Final(vector<val> &V, int ini, int fin){
         if(ini < fin){
-                int pivot = Partition(V, ini, fin);
-                QuickSort(V, ini, pivot - 1);
-                QuickSort(V, pivot + 1, fin);
+                int pivot = Partition_Final(V, ini, fin);
+                QuickSort_Final(V, ini, pivot - 1);
+                QuickSort_Final(V, pivot + 1, fin);
+        }
+}
+
+template <typename val>
+int Partition_Inicio(vector<val> &V, int ini, int fin){
+        val x = V[ini];    // Variable "pivote"
+	int i = fin;
+	val aux;
+
+	for(int j = fin; j >= ini + 1; j--){
+		if(V[j] >= x){
+			aux = V[i];
+			V[i] = V[j];
+			V[j] = aux;
+			i = i - 1;
+		}
+	}
+	aux = V[i];
+	V[i] = V[ini];
+	V[ini] = aux;
+	return i;
+}
+
+template <typename val>
+void QuickSort_Inicio(vector<val> &V, int ini, int fin){
+        if(ini < fin){
+                int pivot = Partition_Inicio(V, ini, fin);
+                QuickSort_Inicio(V, ini, pivot - 1);
+                QuickSort_Inicio(V, pivot + 1, fin);
+        }
+}
+
+template <typename val>
+int Partition_Medio(vector<val> &V, int ini, int fin){
+        int medio = (ini + fin) / 2;
+        val x = V[medio];    // Variable "pivote"
+	int i = ini;
+	int j = fin;
+	val aux;
+
+	while(i <= j){
+	  while(V[i] < x){  // Encontrar 1r elemento >= que el pivote
+	    i++;
+	  }
+	  while(V[j] > x){  // Encontrar 1r elemento <= que el pivote
+	    j--;
+	  }
+	  if(i <= j){
+	    aux = V[i];
+	    V[i] = V[j];
+	    V[j] = aux;
+	    i++;
+	    j--;
+	  }
+	}
+	
+	return i;
+}
+
+template <typename val>
+void QuickSort_Medio(vector<val> &V, int ini, int fin){
+        if(ini < fin){
+                int pivot = Partition_Medio(V, ini, fin);
+		if(ini < pivot - 1){
+		  QuickSort_Medio(V, ini, pivot - 1);
+		}
+                if(pivot < fin){
+		  QuickSort_Medio(V, pivot + 1, fin);
+		}
+        }
+}
+
+template <typename val>
+int Partition_Random(vector<val> &V, int ini, int fin){
+        int random = ini + rand() % (fin - ini + 1);
+        val x = V[random];    // Variable "pivote"
+	int i = ini;
+	int j = fin;
+	val aux;
+
+	while(i <= j){
+	  while(V[i] < x){  // Encontrar 1r elemento >= que el pivote
+	    i++;
+	  }
+	  while(V[j] > x){  // Encontrar 1r elemento <= que el pivote
+	    j--;
+	  }
+	  if(i <= j){
+	    aux = V[i];
+	    V[i] = V[j];
+	    V[j] = aux;
+	    i++;
+	    j--;
+	  }
+	}
+	
+	return i;
+}
+
+template <typename val>
+void QuickSort_Random(vector<val> &V, int ini, int fin){
+        if(ini < fin){
+                int pivot = Partition_Random(V, ini, fin);
+		if(ini < pivot - 1){
+		  QuickSort_Random(V, ini, pivot - 1);
+		}
+                if(pivot < fin){
+		  QuickSort_Random(V, pivot, fin);
+		}
         }
 }
 

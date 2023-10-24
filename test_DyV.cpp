@@ -1,6 +1,9 @@
 #include <iostream>
 #include <vector>
 #include "DyV.h"
+#include <chrono>
+#include <cstdlib>
+#include <ctime>
 
 using namespace std;
 
@@ -76,10 +79,13 @@ int main(){
 
         vector<int> g{1, 4, 3, 5, 2};
         vector<double> h{1.2, 1.3, 1.1, 1.5, 1.4};
-        vector<char> i{'2', '5', '4', '1', '3'};
+        vector<char> i{'2', '5', '6', '1', '3'};
+	vector<int> j{7, 4, 8, 2, 1};
 	int aux;
 
-	QuickSort(g, 0, g.size() - 1);
+	auto start_Final = chrono::system_clock::now();
+	QuickSort_Final(g, 0, g.size() - 1);
+	auto end_Final = chrono::system_clock::now();
 	
 	cout << "[";
 	for(aux = 0; aux < g.size(); aux++){
@@ -89,8 +95,13 @@ int main(){
 		else
 			cout << ", ";
 	}
+	
+	chrono::duration<float, milli> duration_Final = end_Final - start_Final;
+	cout << "Tiempo (Pivote = Final vector): " << duration_Final.count() << "s\n\n";
 
-	QuickSort(h, 0, h.size() - 1);
+	auto start_Inicio = chrono::system_clock::now();
+	QuickSort_Inicio(h, 0, h.size() - 1);
+	auto end_Inicio = chrono::system_clock::now();
 
         cout << "[";
         for(aux = 0; aux < h.size(); aux++){
@@ -100,8 +111,12 @@ int main(){
                 else
                         cout << ", ";
         }
+	chrono::duration<float, milli> duration_Inicio = end_Inicio - start_Inicio;
+        cout << "Tiempo (Pivote = Inicio Vector): " << duration_Inicio.count() << "s\n\n";
 
-	QuickSort(i, 0, i.size() - 1);
+	auto start_Medio = chrono::system_clock::now();
+	QuickSort_Medio(i, 0, i.size() - 1);
+	auto end_Medio = chrono::system_clock::now();
 
         cout << "[";
         for(aux = 0; aux < i.size(); aux++){
@@ -111,7 +126,25 @@ int main(){
                 else
                         cout << ", ";
         }
+	chrono::duration<float, milli> duration_Medio = end_Medio - start_Medio;
+        cout << "Tiempo (Pivote = Medio Vector): " << duration_Medio.count() << "s\n\n";
 
+	srand(time(0));
+	auto start_Random = chrono::system_clock::now();
+        QuickSort_Random(j, 0, j.size() - 1);
+        auto end_Random = chrono::system_clock::now();
+
+        cout << "[";
+        for(aux = 0; aux < j.size(); aux++){
+                cout << j[aux];
+                if(aux == j.size() - 1)
+                        cout << "] (int)\n";
+                else
+                        cout << ", ";
+        }
+
+        chrono::duration<float, milli> duration_Random = end_Random - start_Random;
+        cout << "Tiempo (Pivote = Pos. Random vector): " << duration_Random.count() << "s\n\n";
 
 	return 0;
 }
