@@ -40,3 +40,33 @@ int BusquedaBinaria_INV(val X, vector<val> V, int ini, int fin){
 		return BusquedaBinaria_INV(X, V, medio + 1, fin);
 	}
 }
+
+template <typename val>
+int Partition(vector<val> &V, int ini, int fin){
+	val x = V[fin];
+	int i = ini;
+	val aux;
+
+	for(int j = ini; j <= fin - 1; j++){
+		if(V[j] <= x){
+			aux = V[i];
+			V[i] = V[j];
+			V[j] = aux;
+			i = i + 1;
+		}
+	}
+	aux = V[i];
+	V[i] = V[fin];
+	V[fin] = aux;
+	return i;
+}
+
+template <typename val>
+void QuickSort(vector<val> &V, int ini, int fin){
+        if(ini < fin){
+                int pivot = Partition(V, ini, fin);
+                QuickSort(V, ini, pivot - 1);
+                QuickSort(V, pivot + 1, fin);
+        }
+}
+
