@@ -4,8 +4,8 @@
 
 using namespace std;
 
-vector<int> Cambio(vector<int> v, int M){
-	int n = v.size();		//n = Tamaño vector v (núm. monedas)
+vector<int> Cambio(vector<int> v, int M, int n){
+	//n = Tamaño vector v (núm. monedas)
 	int T[n][M + 1];
 	int i, j;
 
@@ -69,7 +69,7 @@ int main(){
 	vector<int> v{1, 4, 6};
 	int P = 8; 				//Cantidad a buscar
 	int x;
-	vector <int> Sol = Cambio(v, P);
+	vector <int> Sol = Cambio(v, P, v.size());
 
 	for(int i = 0; i < Sol.size(); i++){
 		cout << "Monedas de " << v[i] << ": " << Sol[i] << " \n";
